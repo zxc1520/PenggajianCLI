@@ -4,9 +4,12 @@ import java.util.Scanner;
 
 public class Gaji {
 
+    // Array Statis Untuk Nama Karyawan
+    static String namaOrang[] = { "Ahmad", "Bagir", "Cindy", "Della", "Ellias", "Fuad", "Ghani"};
     static String nama[] = new String[0];
     static int [] gapok, gatun, lembur;
-    static int total, option, sum, jam = 0;
+    static int option, sum;
+    static double gajiTotal, total, gajiLembur = 0.06f;
 
     public static void main(String[] args) {
 
@@ -33,6 +36,9 @@ public class Gaji {
                     report();
                     break;
                 case 7:
+                    help();
+                    break;
+                case 8:
                     tampilkan("Terimakasih !");
                     System.exit(0);
                     break;
@@ -40,7 +46,7 @@ public class Gaji {
                     tampilkan("Input Mismatch !");
                     break;
             }
-        } while (option != 7);
+        } while (option != 8);
     }
 
     private static void data() {
@@ -66,7 +72,12 @@ public class Gaji {
         tampilkan("List Karyawan");
         tampilkan("No | Nama |");
 
+        for (int i=0; i < namaOrang.length; i++) {
+            tampilkan((i+1) + ".    " + namaOrang[i] + "     |");
+        }
+
         for(int i=0; i < nama.length; i++) {
+
             tampilkan((i + 1) + ".   " + nama[i] + "         | ");
         }
     }
@@ -75,10 +86,10 @@ public class Gaji {
         tampil("Masukkan nama karyawan: ");
         String id = pindaikan();
 
-        for (int i=0; i < nama.length; i++) {
+        for (int i=0; i < nama.length &&  i < namaOrang.length; i++) {
 
-            if (nama[i].equals(id)) {
-                tampilkan("Perhitungan Gaji " + nama[i]);
+            if (nama[i].equals(id) || namaOrang[i].equals(id)) {
+                tampilkan("Perhitungan Gaji");
 
                 tampil("Masukkan Gaji Pokok: ");
                 gapok[i] = pindai();
@@ -89,12 +100,26 @@ public class Gaji {
                 tampil("Masukkan Lembur per-jam (1-8): ");
                 lembur[i] = pindai();
 
-//                gapok = new int[i];
-//                gatun = new int[i];
-//                lembur = new int[i];
+                if (lembur[i] == 1) {
+                    total = gajiLembur * 1;
+                } else if (lembur[i] == 2) {
+                    total = gajiLembur * 2;
+                } else if (lembur[i] == 3) {
+                    total = gajiLembur * 3;
+                } else if (lembur[i] == 4) {
+                    total = gajiLembur * 4;
+                } else if (lembur[i] == 5) {
+                    total = gajiLembur * 5;
+                } else if (lembur[i] == 6) {
+                    total = gajiLembur * 6;
+                } else if (lembur[i] == 7) {
+                    total = gajiLembur * 8;
+                } else if (lembur[i] == 8) {
+                    total = gajiLembur * 8;
+                }
 
-                total = gapok[i] + gatun[i];
-                tampilkan("Gaji Total: " + total);
+                gajiTotal = gapok[i] + gatun[i] + lembur[i];
+                tampilkan("Gaji Total: " + gajiTotal);
             }
         }
     }
@@ -109,12 +134,12 @@ public class Gaji {
                 tampilkan("------------------------");
                 tampilkan("Struk Gaji PT. XXXX");
                 tampilkan("------------------------");
-                tampilkan("Nama             : \t" + "Rp. " +  nama[i]);
+                tampilkan("Nama             : \t" +  nama[i]);
                 tampilkan("Gaji Pokok       : \t" + "Rp. " + gapok[i]);
                 tampilkan("Gaji Tunjangan   : \t" + "Rp. " + gatun[i]);
                 tampilkan("Gaji Lembur      : \t" + "Rp. " + lembur[i]);
                 tampilkan("-------------------------");
-                tampilkan("\t\t Total Gaji: " + total);
+                tampilkan("\t\t Total Gaji: " + " Rp. " + gajiTotal);
             }
         }
     }
@@ -136,24 +161,31 @@ public class Gaji {
         tampilkan("Laporkan masalah");
     }
 
+    private static void help() {
+        tampilkan("=== Bantuan === ");
+        tampilkan("Untuk bantuan selengkapnya");
+        tampilkan("https://github.com/zxc1520/PenggajianCLI");
+    }
+
     private static void menu() {
-        System.out.println("=== Program Penggajian PT XXXX ===");
-        System.out.println("1. Input Data Pegawai ");
-        System.out.println("2. Lihat Data Pegawai ");
-        System.out.println("3. Perhitungan Gaji Pegawai");
-        System.out.println("4. Cetak Slip Pegawai ");
-        System.out.println("5. Cari Data Pegawai ");
-        System.out.println("6. Laporan");
-        System.out.println("7. Keluar");
-        System.out.println("==================================");
-        System.out.print("Pilihan anda: ");
+        tampilkan("=== Program Penggajian PT XXXX ===");
+        tampilkan("1. Input Data Pegawai ");
+        tampilkan("2. Lihat Data Pegawai ");
+        tampilkan("3. Perhitungan Gaji Pegawai");
+        tampilkan("4. Cetak Slip Pegawai ");
+        tampilkan("5. Cari Data Pegawai ");
+        tampilkan("6. Laporan");
+        tampilkan("7. Bantuan");
+        tampilkan("8. Keluar");
+        tampilkan("==================================");
+        tampil("Pilihan anda: ");
         option = pindai();
     }
 
     /**
+     * io kecil bahasa indonesia
      *
-     *
-     * @return
+     * @author Afif Ghulam
      */
     private static int pindai() {
         Scanner scanner = new Scanner(System.in);
