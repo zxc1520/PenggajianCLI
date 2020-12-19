@@ -4,12 +4,13 @@ import java.util.Scanner;
 
 public class Gaji {
 
-    // Array Statis Untuk Nama Karyawan
-    static String namaOrang[] = { "Ahmad", "Bagir", "Cindy", "Della", "Ellias", "Fuad", "Ghani"};
-    static String nama[] = new String[0];
-    static int [] gapok, gatun, lembur;
-    static int option, sum;
-    static double gajiTotal, total, gajiLembur = 0.06f;
+    static String nama[] = new String[10];
+    static int [] gapok =  new int[10];
+        static int[] gatun = new int[10];
+        static int [] lembur = new int[10];
+        static int [] gajiTotal = new int[10];
+    static int option, sum, MAX;
+    static double total, gajiLembur = 0.06f;
 
     public static void main(String[] args) {
 
@@ -51,20 +52,21 @@ public class Gaji {
 
     private static void data() {
         tampilkan("=== List Data Karyawan ===");
-        tampilkan("Masukkan Jumlah Karyawan");
-        sum = pindai();
 
-        nama = new String[sum];
-        gapok = new int[sum];
-        gatun = new int[sum];
-        lembur = new int[sum];
-
-        for (int i=0; i < nama.length; i++) {
-            tampil((i+1) + " Masukkan Nama Karyawan ");
+        for (int i = 5; i < nama.length; i++) {
+            tampil(" Masukkan Nama Karyawan ");
             nama[i] = pindaikan();
         }
 
         tampilkan("Data telah tersimpan !");
+    }
+
+    private static void dataStatis() {
+        nama[0] = "Andi";
+        nama[1] = "Budi";
+        nama[2] = "Candra";
+        nama[3] = "Dhea";
+        nama[4] = "Ega";
     }
 
     private static void view() {
@@ -72,13 +74,11 @@ public class Gaji {
         tampilkan("List Karyawan");
         tampilkan("No | Nama |");
 
-        for (int i=0; i < namaOrang.length; i++) {
-            tampilkan((i+1) + ".    " + namaOrang[i] + "     |");
-        }
+        dataStatis();
 
         for(int i=0; i < nama.length; i++) {
 
-            tampilkan((i + 1) + ".   " + nama[i] + "         | ");
+            System.out.printf((i+1) + " | %s | \t\n", nama[i]);
         }
     }
 
@@ -86,10 +86,10 @@ public class Gaji {
         tampil("Masukkan nama karyawan: ");
         String id = pindaikan();
 
-        for (int i=0; i < nama.length &&  i < namaOrang.length; i++) {
+        for (int i=0; i < nama.length; i++) {
 
-            if (nama[i].equals(id) || namaOrang[i].equals(id)) {
-                tampilkan("Perhitungan Gaji");
+            if (nama[i].equals(id)) {
+                tampilkan("=== Perhitungan Gaji ===");
 
                 tampil("Masukkan Gaji Pokok: ");
                 gapok[i] = pindai();
@@ -118,8 +118,8 @@ public class Gaji {
                     total = gajiLembur * 8;
                 }
 
-                gajiTotal = gapok[i] + gatun[i] + lembur[i];
-                tampilkan("Gaji Total: " + gajiTotal);
+                gajiTotal[i] = gapok[i] + gatun[i] + lembur[i];
+                tampilkan("Data Gaji telah tersimpan !");
             }
         }
     }
@@ -139,7 +139,7 @@ public class Gaji {
                 tampilkan("Gaji Tunjangan   : \t" + "Rp. " + gatun[i]);
                 tampilkan("Gaji Lembur      : \t" + "Rp. " + lembur[i]);
                 tampilkan("-------------------------");
-                tampilkan("\t\t Total Gaji: " + " Rp. " + gajiTotal);
+                tampilkan("\t\t Total Gaji: " + " Rp. " + gajiTotal[i]);
             }
         }
     }
@@ -158,14 +158,33 @@ public class Gaji {
     }
 
     private static void report() {
-        tampilkan("Laporkan masalah");
+        tampilkan("Lapoan Data Gaji Karyawan");
+        tampilkan("No | Nama Karyawan | Gaji Pokok | Gaji Tunjangan | Gaji Lembur | ");
+        for (int i=0; i < nama.length; i++) {
+            if (nama[i] != null) {
+                tampilkan((i + 1) + " |    " + nama[i] + "       | " + gapok[i] + "     | " + gatun[i] + "    | ");
+            } else {
+                tampilkan("Data Masih Kosong !");
+            }
+        }
+    }
+
+    private static void max() {
+        tampilkan("=== Gaji Karyawan Terbesar === ");
+        MAX = gajiTotal[0];
+        for (int i=0; i < gajiTotal.length; i++) {
+            if (gajiTotal[i] > MAX) {
+                MAX = gajiTotal[i];
+            }
+        }
     }
 
     private static void help() {
         tampilkan("=== Bantuan === ");
         tampilkan("Untuk bantuan selengkapnya");
-        tampilkan("https://github.com/zxc1520/PenggajianCLI");
+        tampilkan("https://github.com/zxc1520/PenggajianCLI/blob/master/README.md#how-to-use-question");
     }
+
 
     private static void menu() {
         tampilkan("=== Program Penggajian PT XXXX ===");
