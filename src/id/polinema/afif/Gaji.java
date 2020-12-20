@@ -6,11 +6,12 @@ public class Gaji {
 
     static String nama[] = new String[10];
     static int [] gapok =  new int[10];
-        static int[] gatun = new int[10];
-        static int [] lembur = new int[10];
-        static int [] gajiTotal = new int[10];
-    static int option, sum, MAX;
-    static double total, gajiLembur = 0.06f;
+    static int [] gatun = new int[10];
+    static int [] jamLembur = new int[10];
+    static int [] total = new int[10];
+    static int [] gajiTotal = new int[10];
+    static int option,  MAX, MIN;
+    static double gajiLembur = 0.06f;
 
     public static void main(String[] args) {
 
@@ -40,6 +41,9 @@ public class Gaji {
                     help();
                     break;
                 case 8:
+                    degree();
+                    break;
+                case 9:
                     tampilkan("Terimakasih !");
                     System.exit(0);
                     break;
@@ -47,7 +51,7 @@ public class Gaji {
                     tampilkan("Input Mismatch !");
                     break;
             }
-        } while (option != 8);
+        } while (option != 9);
     }
 
     private static void data() {
@@ -98,27 +102,34 @@ public class Gaji {
                 gatun[i] = pindai();
 
                 tampil("Masukkan Lembur per-jam (1-8): ");
-                lembur[i] = pindai();
+                jamLembur[i] = pindai();
 
-                if (lembur[i] == 1) {
-                    total = gajiLembur * 1;
-                } else if (lembur[i] == 2) {
-                    total = gajiLembur * 2;
-                } else if (lembur[i] == 3) {
-                    total = gajiLembur * 3;
-                } else if (lembur[i] == 4) {
-                    total = gajiLembur * 4;
-                } else if (lembur[i] == 5) {
-                    total = gajiLembur * 5;
-                } else if (lembur[i] == 6) {
-                    total = gajiLembur * 6;
-                } else if (lembur[i] == 7) {
-                    total = gajiLembur * 8;
-                } else if (lembur[i] == 8) {
-                    total = gajiLembur * 8;
+                if (jamLembur[i] == 1) {
+                    total[i] = (int) (gajiLembur * gapok[i] * 1);
+                    gajiTotal[i] = gapok[i] + gatun[i] + total[i];
+                } else if (jamLembur[i] == 2) {
+                    total[i] = (int) (gajiLembur * gapok[i] * 2);
+                    gajiTotal[i] = gapok[i] + gatun[i] + total[i];
+                } else if (jamLembur[i] == 3) {
+                    total[i] = (int) (gajiLembur * gapok[i] * 3);
+                    gajiTotal[i] = gapok[i] + gatun[i] + total[i];
+                } else if (jamLembur[i] == 4) {
+                    total[i] = (int) (gajiLembur * gapok[i] * 4);
+                    gajiTotal[i] = gapok[i] + gatun[i] + total[i];
+                } else if (jamLembur[i] == 5) {
+                    total[i] = (int) (gajiLembur * gapok[i] * 5);
+                    gajiTotal[i] = gapok[i] + gatun[i] + total[i];
+                } else if (jamLembur[i] == 6) {
+                    total[i] = (int) (gajiLembur * gapok[i] * 6);
+                    gajiTotal[i] = gapok[i] + gatun[i] + total[i];
+                } else if (jamLembur[i] == 7) {
+                    total[i] = (int)(gajiLembur * gapok[i] * 7);
+                    gajiTotal[i] = gapok[i] + gatun[i] + total[i];
+                } else if (jamLembur[i] == 8) {
+                    total[i] = (int)(gajiLembur * gapok[i] * 8);
+                    gajiTotal[i] = gapok[i] + gatun[i] + total[i];
                 }
 
-                gajiTotal[i] = gapok[i] + gatun[i] + lembur[i];
                 tampilkan("Data Gaji telah tersimpan !");
             }
         }
@@ -137,7 +148,7 @@ public class Gaji {
                 tampilkan("Nama             : \t" +  nama[i]);
                 tampilkan("Gaji Pokok       : \t" + "Rp. " + gapok[i]);
                 tampilkan("Gaji Tunjangan   : \t" + "Rp. " + gatun[i]);
-                tampilkan("Gaji Lembur      : \t" + "Rp. " + lembur[i]);
+                tampilkan("Gaji Lembur      : \t" + "Rp. " + total[i]);
                 tampilkan("-------------------------");
                 tampilkan("\t\t Total Gaji: " + " Rp. " + gajiTotal[i]);
             }
@@ -162,21 +173,28 @@ public class Gaji {
         tampilkan("No | Nama Karyawan | Gaji Pokok | Gaji Tunjangan | Gaji Lembur | ");
         for (int i=0; i < nama.length; i++) {
             if (nama[i] != null) {
-                tampilkan((i + 1) + " |    " + nama[i] + "       | " + gapok[i] + "     | " + gatun[i] + "    | ");
+                tampilkan((i + 1) + " |    " + nama[i] + "       | " + gapok[i] + "     | " + gatun[i] + "    | " + total[i] + "    | ");
             } else {
                 tampilkan("Data Masih Kosong !");
             }
         }
     }
 
-    private static void max() {
+    private static void degree() {
         tampilkan("=== Gaji Karyawan Terbesar === ");
         MAX = gajiTotal[0];
+        MIN = gajiTotal[0];
         for (int i=0; i < gajiTotal.length; i++) {
             if (gajiTotal[i] > MAX) {
                 MAX = gajiTotal[i];
+            } else if (gajiTotal[i] < MIN) {
+                MIN = gajiTotal[i];
             }
         }
+
+        tampilkan("Nominal Gaji Terbesar " + MAX);
+        tampilkan("Nominal Gaji Terkecil " + MIN);
+
     }
 
     private static void help() {
@@ -195,7 +213,8 @@ public class Gaji {
         tampilkan("5. Cari Data Pegawai ");
         tampilkan("6. Laporan");
         tampilkan("7. Bantuan");
-        tampilkan("8. Keluar");
+        tampilkan("8. Perbandingan");
+        tampilkan("9. Keluar");
         tampilkan("==================================");
         tampil("Pilihan anda: ");
         option = pindai();
